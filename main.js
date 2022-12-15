@@ -57,7 +57,7 @@ function draw() {
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
   /* Set the values of the projection transformation */
-  let projection = m4.perspective(Math.PI / 8, 1, 8, 12);
+  let projection = m4.perspective(Math.PI / 2, 1, 4, 24);
 
   /* Get the view matrix from the SimpleRotator object.*/
   let modelView = spaceball.getViewMatrix();
@@ -87,37 +87,24 @@ function CreateSurfaceData() {
   const c = 2;
   const d = 4;
   let funcV = 0;
+  let funcS = 0;
 
-  for (let i = 0; i < 360; i++) {
-    funcV =
-      (a * b) /
-      Math.sqrt(
-        Math.pow(a, 2) * Math.pow(Math.sin(deg2rad(i)), 2) +
-          Math.pow(b, 2) * Math.pow(Math.cos(deg2rad(i)), 2),
-      );
-
-    vertexList.push(
-      0.5 *
-        (funcV * (1 + Math.cos(deg2rad(i))) +
-          (Math.pow(d, 2) - Math.pow(c, 2)) * ((1 - Math.cos(deg2rad(i))) / funcV)) *
-        Math.cos(deg2rad(i)),
-      0.5 *
-        (funcV * (1 + Math.cos(deg2rad(i))) +
-          (Math.pow(d, 2) - Math.pow(c, 2)) * ((1 - Math.cos(deg2rad(i))) / funcV)) *
-        Math.sin(deg2rad(i)),
-      0.5 * (funcV - (Math.pow(d, 2) - Math.pow(c, 2)) / funcV) * Math.sin(deg2rad(i)),
-    );
-    vertexList.push(
-      0.5 *
-        (funcV * (1 + Math.cos(deg2rad(i))) +
-          (Math.pow(d, 2) - Math.pow(c, 2)) * ((1 - Math.cos(deg2rad(i))) / funcV)) *
-        Math.cos(deg2rad(i)),
-      0.5 *
-        (funcV * (1 + Math.cos(deg2rad(i))) +
-          (Math.pow(d, 2) - Math.pow(c, 2)) * ((1 - Math.cos(deg2rad(i))) / funcV)) *
-        Math.sin(deg2rad(i)),
-      0.5 * (funcV - (Math.pow(d, 2) - Math.pow(c, 2)) / funcV) * Math.sin(deg2rad(i)),
-    );
+  for (let v = 0; v < 360; v++) {
+    for (let u = 0; u < 360; u++) {
+      funcV =
+        (a * b) /
+        Math.sqrt(
+          Math.pow(a, 2) * Math.pow(Math.sin(deg2rad(v)), 2) +
+            Math.pow(b, 2) * Math.pow(Math.cos(deg2rad(v)), 2),
+        );
+      funcS =
+        funcV * (1 + Math.cos(deg2rad(u))) +
+        (Math.pow(d, 2) - Math.pow(c, 2)) * ((1 - Math.cos(deg2rad(u))) / funcV);
+      const x = 0.5 * funcS * Math.cos(deg2rad(v));
+      const y = 0.5 * funcS * Math.sin(deg2rad(v));
+      const z = 0.5 * (funcV - (Math.pow(d, 2) - Math.pow(c, 2)) / funcV) * Math.sin(deg2rad(u));
+      vertexList.push(x, y, z);
+    }
   }
 
   return vertexList;
