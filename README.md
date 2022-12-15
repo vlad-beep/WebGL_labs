@@ -1,6 +1,6 @@
 # WebGL
 
-PA1 Final resoult 
+PA1 Final resoult for Virich Cyclic Surface
 
 ![image](https://user-images.githubusercontent.com/84920621/207842126-78b559dc-a7c5-4e68-9dd5-52a07871d31d.png)
 
