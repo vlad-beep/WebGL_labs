@@ -13,10 +13,12 @@ function deg2rad(angle) {
   return (angle * Math.PI) / 180;
 }
 function GetCirclePoint(angle) {
-  angle = deg2rad(angle);
-  let x = radius * Math.cos(angle);
-  let y = 0;
-  let z = radius * Math.sin(angle);
+  const xInput = document.getElementById('x');
+  const yInput = document.getElementById('y');
+  const zInput = document.getElementById('z');
+  const x = parseFloat(xInput.value);
+  const y = parseFloat(yInput.value);
+  const z = parseFloat(zInput.value);
   return [x, y, z];
 }
 
@@ -38,8 +40,8 @@ function Model(name) {
     gl.vertexAttribPointer(shProgram.iAttribVertex, 3, gl.FLOAT, false, 0, 0);
     gl.enableVertexAttribArray(shProgram.iAttribVertex);
 
-    gl.vertexAttribPointer(shProgram.iNormal, 3, gl.FLOAT, false, 0, 0);
-    gl.enableVertexAttribArray(shProgram.iNormal);
+    gl.vertexAttribPointer(shProgram.iAttribNormal, 3, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(shProgram.iAttribNormal);
 
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, this.count);
   };
@@ -58,8 +60,8 @@ function ShaderProgram(name, program) {
   this.iModelViewProjectionMatrix = -1;
 
   // Normals
-  this.iNormal = -1;
-  this.iNormalMatrix = -1;
+  this.iAttribNormal = -1;
+  this.iAttribNormalMatrix = -1;
 
   // Ambient, diffuse, specular
   this.iAmbientColor = -1;
@@ -108,29 +110,21 @@ function draw() {
 
   gl.uniformMatrix4fv(shProgram.iModelViewProjectionMatrix, false, modelViewProjection);
 
-  gl.uniformMatrix4fv(shProgram.iNormalMatrix, false, normalMatrix);
+  gl.uniformMatrix4fv(shProgram.iAttribNormalMatrix, false, normalMatrix);
 
   let angle = Array.from(lightPositionEl.getElementsByTagName('input')).map((el) => +el.value)[0];
 
   lightPos = GetCirclePoint(angle);
   gl.uniform3fv(shProgram.iLightPos, lightPos);
 
-  gl.uniform1f(shProgram.iShininess, 85.0);
-  gl.uniform1f(shProgram.iAmbientCoefficient, 1);
-  gl.uniform1f(shProgram.iDiffuseCoefficient, 1);
-  gl.uniform1f(shProgram.iSpecularCoefficient, 1);
+  gl.uniform1f(shProgram.iShininess, 30.0);
 
   gl.uniform3fv(shProgram.iAmbientColor, [0.2, 0.13, 0.7]);
   gl.uniform3fv(shProgram.iDiffuseColor, [0.16, 1, 0.2]);
   gl.uniform3fv(shProgram.iSpecularColor, [1.0, 1.0, 1.0]);
 
-  /* Draw the six faces of a cube, with different colors. */
   surface.Draw(gl.TRIANGLE_STRIP);
   light.Draw(gl.LINES);
-}
-
-function GetCurrentZPosition(h) {
-  return Math.pow(Math.abs(h) - height, 2) / (2 * p);
 }
 
 function CreateSurfaceData() {
@@ -140,7 +134,7 @@ function CreateSurfaceData() {
   const c = 2;
   const d = 4;
 
-  for (let u = 0; u < 360; u += 1) {
+  for (let u = 0; u < 360; u += 0.2) {
     for (let v = 0; v < 360; v += 8) {
       let funcV =
         (a * b) /
@@ -178,18 +172,14 @@ function initGL() {
   shProgram.Use();
 
   shProgram.iAttribVertex = gl.getAttribLocation(prog, 'vertex');
+  shProgram.iAttribNormal = gl.getAttribLocation(prog, 'normal');
   shProgram.iModelViewProjectionMatrix = gl.getUniformLocation(prog, 'ModelViewProjectionMatrix');
   shProgram.iColor = gl.getUniformLocation(prog, 'color');
-
-  shProgram.iNormal = gl.getAttribLocation(prog, 'normal');
-  shProgram.iNormalMatrix = gl.getUniformLocation(prog, 'normalMat');
-
+  shProgram.iAttribNormalMatrix = gl.getUniformLocation(prog, 'normalMat');
   shProgram.iAmbientColor = gl.getUniformLocation(prog, 'ambientColor');
   shProgram.iDiffuseColor = gl.getUniformLocation(prog, 'diffuseColor');
   shProgram.iSpecularColor = gl.getUniformLocation(prog, 'specularColor');
-
   shProgram.iShininess = gl.getUniformLocation(prog, 'shininess');
-
   shProgram.iLightPos = gl.getUniformLocation(prog, 'lightPosition');
   shProgram.iSpecularCoefficient = gl.getUniformLocation(prog, 'specularCoefficient');
   shProgram.iAmbientCoefficient = gl.getUniformLocation(prog, 'ambientCoefficient');
@@ -267,6 +257,5 @@ function init() {
   }
 
   spaceball = new TrackballRotator(canvas, draw, 0);
-
   draw();
 }
