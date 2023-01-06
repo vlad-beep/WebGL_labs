@@ -140,7 +140,7 @@ function CreateSurfaceData() {
   const c = 2;
   const d = 4;
 
-  for (let u = 0; u < 360; u += 0.2) {
+  for (let u = 0; u < 360; u += 1) {
     for (let v = 0; v < 360; v += 8) {
       let funcV =
         (a * b) /
