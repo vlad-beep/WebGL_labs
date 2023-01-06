@@ -21,12 +21,22 @@
 
 <body onload="init()">
 
-    <h2>A Cube with "Trackball" Mouse Rotation</h2>
-
-    <p id="message">Bachynskyi Vladyslav TR22-mp PA1<br>
+    <p id="message">Bachynskyi Vladyslav TR22-mp PA2<br>
         (Virich Cyclic Surface)</p>
 
-
+    <div id="lightPostion">
+        <style>
+            #lightPostionX {
+                width: 1000px;
+            }
+        </style>
+        <p>Angle light direction: 0 to 360
+        <p>
+        <p>
+            <label for="lightPostionX">X:</label>
+            <input id="lightPostionX" type="range" min="0" max="360" step="1" onchange="Redraw()" />
+        </p>
+    </div>
     <div id="canvas-holder">
         <canvas width="1000" height="1000" id="webglcanvas" style="background-color:red"></canvas>
     </div>
