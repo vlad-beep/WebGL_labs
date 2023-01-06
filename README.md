@@ -1,12 +1,10 @@
 # WebGL
 
-PA1 Final resoult for Virich Cyclic Surface
+PA2 Final resoult for Virich Cyclic Surface
 
-![image](https://user-images.githubusercontent.com/84920621/207842126-78b559dc-a7c5-4e68-9dd5-52a07871d31d.png)
+DEMO:
 
-![image](https://user-images.githubusercontent.com/84920621/207842304-a6059ffd-87b9-4aeb-8d56-16aad760e832.png)
+![image](https://github.com/vlad-beep/WebGL_labs/blob/PA2/%D0%90%D0%BD%D0%B8%D0%BC%D0%B0%D1%86%D0%B8%D1%8F.gif)
 
-final formula code for drawing:
 
-![image](https://user-images.githubusercontent.com/84920621/207842388-12e56c76-f303-4323-95e3-82dd3acaff6f.png)
 
