@@ -1,5 +1,4 @@
 # WebGL
 
-PA2 Final resoult for Virich Cyclic Surface
+PGW Virich Cyclic Surface var 2
 Demo:
-![image]C:\Users\MiNotebookPro\OneDrive\Рабочий стол\WebGL\WebGL\Анимация.gif
