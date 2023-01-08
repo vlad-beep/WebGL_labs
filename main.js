@@ -330,7 +330,7 @@ function LoadTexture() {
   const image = new Image();
   image.crossOrigin = 'anonymus';
 
-  image.src = 'https://raw.githubusercontent.com/vlad-beep/WebGL_labs/PGW/texture.PNG';
+  image.src = 'https://raw.githubusercontent.com/vlad-beep/WebGL_labs/PGW/texture.png';
   image.onload = () => {
     gl.bindTexture(gl.TEXTURE_2D, texture);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
